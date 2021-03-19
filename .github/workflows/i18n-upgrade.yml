@@ -36,6 +36,13 @@ jobs:
       - name: Compile catalogs
         run: pybabel compile -d locale
 
+      - name: Push upgrades
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: internationalization
+#          FOLDER: docs/build/html
+
 #pybabel init -l fr_FR en_US -i locale/base.pot -d locale
 #pybabel update -i locale/base.pot -d locale
 #pybabel compile -d locale
