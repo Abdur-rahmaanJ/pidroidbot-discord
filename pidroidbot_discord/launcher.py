@@ -11,7 +11,7 @@ from discord.ext import commands
 # load config
 config = get_config()
 log = logging.getLogger("launcher")
-# TODO : gérer numéro de version
+# TODO : gérer numéro de versions
 VERSION = "1.0.0"
 log.info("*" * 60)
 log.info(f" START bot-markdown-discord {VERSION} ".center(60, "*"))
