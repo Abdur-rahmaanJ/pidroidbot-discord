@@ -14,12 +14,12 @@ log = logging.getLogger("launcher")
 # TODO : gérer numéro de versions
 VERSION = "1.0.0"
 log.info("*" * 60)
-log.info(f" START bot-markdown-discord {VERSION} ".center(60, "*"))
+log.info(f" START pidroidbot-discord {VERSION} ".center(60, "*"))
 log.info("*" * 60)
 
 # i18n
 gettext.install(
-    "bot_markdown_discord",
+    "pidroidbot_discord",
     os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(argv[0]))), "locales"),
 )
 _ = gettext.gettext
@@ -29,7 +29,11 @@ bot = commands.Bot(command_prefix=config["bot"]["prefix"])
 
 @bot.event
 async def on_ready():
-    log.info(f"Logged as [{bot.user.name}] with ID [{bot.user.id}]")
+    log.info(
+        _("Logged as [{bot_username}] with ID [{bot_userid}]").format(
+            bot_username=bot.user.name, bot_userid=bot.user.id
+        )
+    )
     await asyncio.sleep(1)
     # inventaire des serveurs auquel le bot est invité
     if config["debug"]["what_i_see"]:
