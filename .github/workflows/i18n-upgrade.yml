@@ -41,6 +41,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: internationalization
+          FOLDER: "."
 #          FOLDER: docs/build/html
 
 #pybabel init -l fr_FR en_US -i locale/base.pot -d locale
