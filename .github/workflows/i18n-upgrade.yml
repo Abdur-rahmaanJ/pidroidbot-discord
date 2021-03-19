@@ -41,8 +41,10 @@ jobs:
       - name: Merge
         run: |
           for f in locale/**/LC_MESSAGES/*.po ; do
-            msgmerge --update "$f" locale/base.pot
-            msgfmt -o "${f_po%.*}.mo" "${f}"
+            pybabel update -i locale/base.pot -o "$f"
+            pybabel compile -i "$f" -o "${f%.*}.mo"
+#            msgmerge --update "$f" locale/base.pot
+#            msgfmt -o "${f_po%.*}.mo" "${f}"
           done
 
 #    - name: Install dependencies
