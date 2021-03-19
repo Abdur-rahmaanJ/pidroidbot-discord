@@ -1,0 +1,38 @@
+---
+#https://github.com/alexkiro/i18n-coverage
+name: i18n Coverage
+
+on:
+  push:
+    paths:
+    - 'locales/*.po'
+  pull_request:
+    paths:
+    - 'locales/*.po'
+
+jobs:
+  i18n-coverage:
+    runs-on: ubuntu-latest
+    name: Check i18n coverage
+    steps:
+    - uses: actions/checkout@v2
+
+#      - name: Install GNU gettext
+#        run: sudo apt-get install gettext
+#
+#      - name: Check i18n format
+#        run: |
+#          for i in locale/**/*.po ; do
+#            echo "checking $i..."
+#            msgfmt -v -c -o /dev/null $i
+#          done
+
+    - name: Check i18n coverage
+      id: i18nCoverage
+      uses: alexkiro/i18n-coverage@v1.0.0
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        translations-path: 'locale/**/*.po'
+
+    - name: Get the coverage
+      run: echo "The coverage was ${{ steps.i18nCoverage.outputs.coverage }}"
