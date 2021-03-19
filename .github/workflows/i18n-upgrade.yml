@@ -19,7 +19,7 @@ jobs:
         python-version: '3.x'
 
     - name: Generate Template
-      run: pygettext -a -d base -p locale/ pidroidbot_discord/* -v
+      run: pygettext.py -a -d base -p locale/ pidroidbot_discord/* -v
 
     - name: Merge
       run: |
