@@ -35,8 +35,8 @@ jobs:
         run: |
           for l in locale/*/ ; do
             echo "--- Locale : $l ---"
-            pybabel update -d locale -l "$l" -D 'base"
-            pybabel compile -d locale -l "$l" -D 'base"
+            pybabel update -d locale -l "$l" -D "base"
+            pybabel compile -d locale -l "$l" -D "base"
           done
 
 #          for f in locale/**/LC_MESSAGES/*.po ; do
