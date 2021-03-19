@@ -28,13 +28,6 @@ jobs:
         run: |
           pip install --upgrade setuptools
           pip install Babel
-#
-#      - name: Whereis
-#        run: pygettext -a -d base -p locale/ pidroidbot_discord/* -v
-#
-#      - name: Generate Template
-#        run: pygettext -a -d base -p locale/ pidroidbot_discord/* -v
-
       - name: Install dependencies
         run: pybabel extract -o locale/base.pot pidroidbot_discord/
 
@@ -43,9 +36,9 @@ jobs:
           for f in locale/**/LC_MESSAGES/*.po ; do
             pybabel update -i locale/base.pot -o "$f"
             pybabel compile -i "$f" -o "${f%.*}.mo"
+          done
 #            msgmerge --update "$f" locale/base.pot
 #            msgfmt -o "${f_po%.*}.mo" "${f}"
-          done
 
 #    - name: Install dependencies
 #      run: |
