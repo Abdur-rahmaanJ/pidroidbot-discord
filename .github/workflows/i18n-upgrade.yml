@@ -8,24 +8,31 @@ on:
 jobs:
   i18n-upgrade:
     runs-on: ubuntu-latest
-
     name: Upgrade i18n
+
     steps:
-    - uses: actions/checkout@v2
+      - name: checkout
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
+      - name: Set up Python 3
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
 
-    - name: Generate Template
-      run: pygettext.py -a -d base -p locale/ pidroidbot_discord/* -v
+      - name: whereis
+        run: whereis pygettext.py
 
-    - name: Merge
-      run: |
-        for i in pidroidbot_discord/locale/**/LC_MESSAGES/*.po ; do
-          msgmerge --update "$i" locale/base.pot
-        done
+      - name: Generate Template
+        run: python3 pygettext.py -a -d base -p locale/ pidroidbot_discord/* -v
+
+      - name: Generate Template
+        run: pygettext.py -a -d base -p locale/ pidroidbot_discord/* -v
+
+      - name: Merge
+        run: |
+          for i in pidroidbot_discord/locale/**/LC_MESSAGES/*.po ; do
+            msgmerge --update "$i" locale/base.pot
+          done
 
 #    - name: Install dependencies
 #      run: |

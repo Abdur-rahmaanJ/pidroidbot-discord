@@ -5,14 +5,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-03-19 11:36+CET\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-19 11:29+0100\n"
 "PO-Revision-Date: 2021-03-19 11:36+CET\n"
 "Last-Translator: Pi Droid<pidroid.b@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-
 
 #: pidroidbot_discord/launcher.py:37
 msgid "Servers' list :"
@@ -21,5 +21,3 @@ msgstr "Servers' list :"
 #: pidroidbot_discord/launcher.py:39
 msgid "- Server {servername}"
 msgstr "- Server {servername}"
-
-
