@@ -33,10 +33,17 @@ jobs:
 
       - name: Merge
         run: |
-          for f in locale/**/LC_MESSAGES/*.po ; do
-            pybabel update -i locale/base.pot -o "$f"
-            pybabel compile -i "$f" -o "${f%.*}.mo"
+          for l in locale/*/ ; do
+            echo "--- Locale : $l ---"
+            pybabel update -d locale -l "$l" -D 'base"
+            pybabel compile -d locale -l "$l" -D 'base"
           done
+
+#          for f in locale/**/LC_MESSAGES/*.po ; do
+#            pybabel update -i locale/base.pot -o "$f"
+#            pybabel compile -i "$f" -o "${f%.*}.mo"
+#          done
+
 #            msgmerge --update "$f" locale/base.pot
 #            msgfmt -o "${f_po%.*}.mo" "${f}"
 
