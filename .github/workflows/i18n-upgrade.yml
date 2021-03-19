@@ -25,7 +25,9 @@ jobs:
 #      - name: Install dependencies
 #        run: pip install  --upgrade setuptools
       - name: Install dependencies
-        run: pip install  --upgrade setuptools babel
+        run: |
+          pip install --upgrade setuptools
+          pip install Babel
 #
 #      - name: Whereis
 #        run: pygettext -a -d base -p locale/ pidroidbot_discord/* -v
@@ -34,7 +36,7 @@ jobs:
 #        run: pygettext -a -d base -p locale/ pidroidbot_discord/* -v
 
       - name: Install dependencies
-        run: pybabel extract pidroidbot_discord/* locale/base.pot
+        run: pybabel extract pidroidbot_discord/ locale/base.pot
 
       - name: Merge
         run: |
