@@ -14,30 +14,38 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-#      - name: Install GNU gettext
-#        run: sudo apt-get install gettext
-#
       - name: Set up Python 3
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
 
-#      - name: Install dependencies
-#        run: pip install  --upgrade setuptools
       - name: Install dependencies
         run: |
           pip install --upgrade setuptools
           pip install Babel
-      - name: Install dependencies
+
+      - name: Generate base.pot
         run: pybabel extract -o locale/base.pot pidroidbot_discord/
 
-      - name: Merge
-        run: |
-          for l in locale/*/ ; do
-            echo "--- Locale : $l ---"
-            pybabel update -d locale -l "$l" -D "base"
-            pybabel compile -d locale -l "$l" -D "base"
-          done
+#      for each new lang
+#      pybabel init -l en_US -i locale/base.pot -d locale
+
+      - name: Upadate catalogs
+        run: pybabel update -i locale/base.pot -d locale
+
+      - name: Compile catalogs
+        run: pybabel compile -d locale
+
+#pybabel init -l fr_FR en_US -i locale/base.pot -d locale
+#pybabel update -i locale/base.pot -d locale
+#pybabel compile -d locale
+
+#          for l in locale/*/ ; do
+#            echo "--- Locale : $l ---"
+#            # pybabel init -l en_US -i locale/base.pot -d locale
+#            pybabel update -d locale -l "$l" -i locale/base.pot -D "base"
+#            pybabel compile -d locale -l "$l" -D "base"
+#          done
 
 #          for f in locale/**/LC_MESSAGES/*.po ; do
 #            pybabel update -i locale/base.pot -o "$f"
