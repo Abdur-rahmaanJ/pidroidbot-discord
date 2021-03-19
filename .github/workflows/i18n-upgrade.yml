@@ -33,7 +33,7 @@ jobs:
 #        run: python3 pygettext.py -a -d base -p locale/ pidroidbot_discord/* -v
 #
       - name: Generate Template
-        run: pygettext.py -a -d base -p locale/ pidroidbot_discord/* -v
+        run: pygettext -a -d base -p locale/ pidroidbot_discord/* -v
 
       - name: Merge
         run: |
