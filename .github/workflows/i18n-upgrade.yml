@@ -14,24 +14,32 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
+#      - name: Install GNU gettext
+#        run: sudo apt-get install gettext
+#
       - name: Set up Python 3
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
 
-      - name: whereis
-        run: whereis pygettext.py
+      - name: Install dependencies
+        run: pip install  --upgrade setuptools
 
-      - name: Generate Template
-        run: python3 pygettext.py -a -d base -p locale/ pidroidbot_discord/* -v
-
+#
+#      - name: whereis
+#        run: whereis pygettext.py
+#
+#      - name: Generate Template
+#        run: python3 pygettext.py -a -d base -p locale/ pidroidbot_discord/* -v
+#
       - name: Generate Template
         run: pygettext.py -a -d base -p locale/ pidroidbot_discord/* -v
 
       - name: Merge
         run: |
-          for i in pidroidbot_discord/locale/**/LC_MESSAGES/*.po ; do
-            msgmerge --update "$i" locale/base.pot
+          for f in locale/**/LC_MESSAGES/*.po ; do
+            msgmerge --update "$f" locale/base.pot
+            msgfmt -o "${f_po%.*}.mo" "${f}"
           done
 
 #    - name: Install dependencies
