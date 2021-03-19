@@ -22,18 +22,19 @@ jobs:
         with:
           python-version: '3.x'
 
+#      - name: Install dependencies
+#        run: pip install  --upgrade setuptools
       - name: Install dependencies
-        run: pip install  --upgrade setuptools
-
+        run: pip install  --upgrade setuptools babel
 #
-#      - name: whereis
-#        run: whereis pygettext.py
+#      - name: Whereis
+#        run: pygettext -a -d base -p locale/ pidroidbot_discord/* -v
 #
 #      - name: Generate Template
-#        run: python3 pygettext.py -a -d base -p locale/ pidroidbot_discord/* -v
-#
-      - name: Generate Template
-        run: python3 -m pygettext -a -d base -p locale/ pidroidbot_discord/* -v
+#        run: pygettext -a -d base -p locale/ pidroidbot_discord/* -v
+
+      - name: Install dependencies
+        run: pybabel extract pidroidbot_discord/* locale/base.pot
 
       - name: Merge
         run: |
