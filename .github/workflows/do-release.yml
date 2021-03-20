@@ -1,14 +1,16 @@
 ---
-name: i18n Upgrade
+name: Build new version
 
 on:
   push:
-  pull_request:
+    branches:
+      - main
 
 jobs:
-  i18n-upgrade:
+  new-release:
     runs-on: ubuntu-latest
-    name: Upgrade i18n
+    if: "!startsWith(github.event.head_commit.message, '[SKIP]')"
+    name: New release
 
     steps:
       - name: checkout
@@ -35,6 +37,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install bump2version setuptools wheel
           pip install Babel
+
+      - name: Check changelog
+        run: tools/check_changelog.py
 
       - name: Bump Major Version
         env:
