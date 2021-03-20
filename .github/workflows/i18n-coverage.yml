@@ -5,10 +5,10 @@ name: i18n Coverage
 on:
   push:
     paths:
-    - 'locales/*.po'
+    - 'locale/**/LC_MESSAGES/*.po'
   pull_request:
     paths:
-    - 'locales/*.po'
+    - 'locale/**/LC_MESSAGES/*.po'
 
 jobs:
   i18n-coverage:
@@ -32,7 +32,7 @@ jobs:
       uses: alexkiro/i18n-coverage@v1.0.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        translations-path: 'locale/**/*.po'
+        translations-path: 'locale/**/LC_MESSAGES/*.po'
 
     - name: Get the coverage
       run: echo "The coverage was ${{ steps.i18nCoverage.outputs.coverage }}"
