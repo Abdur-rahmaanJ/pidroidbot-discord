@@ -39,7 +39,7 @@ jobs:
           pip install Babel
 
       - name: Check changelog
-        run: tools/check_changelog.py
+        run: python tools/check_changelog.py
 
       - name: Bump Major Version
         env:
