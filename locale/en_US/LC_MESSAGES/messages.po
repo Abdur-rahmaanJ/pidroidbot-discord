@@ -20,7 +20,7 @@ msgstr ""
 
 #: pidroidbot_discord/launcher.py:37
 msgid "Servers' list :"
-msgstr "aaa"
+msgstr "aasssa"
 
 #: pidroidbot_discord/launcher.py:39
 msgid "- Server {servername}"
