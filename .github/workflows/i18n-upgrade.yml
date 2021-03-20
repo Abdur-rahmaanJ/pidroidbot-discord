@@ -19,30 +19,73 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Setup Git
+        run: |
+          git config user.name " PiDroid-B Bot"
+          git config user.email 'pidroid-b@users.noreply.github.com'
+#          git remote set-url origin https://x-access-token:${{ secrets.AC_GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+#          git checkout "${GITHUB_REF:11}"
+
+      - name: Setup env variables
+        run: |
+          echo "SKIPBUMP=FALSE" >> $GITHUB_ENV
+
       - name: Install dependencies
         run: |
-          pip install --upgrade setuptools
+          python -m pip install --upgrade pip
+          pip install bump2version setuptools wheel
           pip install Babel
 
-      - name: Generate base.pot
-        run: pybabel extract -o locale/base.pot pidroidbot_discord/
+      - name: Bump Major Version
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          bump2version minor
+          echo "SKIPBUMP=TRUE" >> $GITHUB_ENV
+        if: "startsWith(github.event.head_commit.message, '[MAJOR]')"
 
-#      for each new lang
-#      pybabel init -l en_US -i locale/base.pot -d locale
+      - name: Bump Minor Version
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          bump2version minor
+          echo "SKIPBUMP=TRUE" >> $GITHUB_ENV
+        if: "startsWith(github.event.head_commit.message, '[FEATURE]')"
 
-      - name: Upadate catalogs
-        run: pybabel update -i locale/base.pot -d locale
+      # Default action
+      - name: Bump Patch Version
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          bump2version patch
+        if: env.SKIPBUMP == 'FALSE'
 
-      - name: Compile catalogs
-        run: pybabel compile -d locale
+      - name: Commit version change to master
+        run: |
+          git push --follow-tags
 
-      - name: Push upgrades
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: internationalization
-          FOLDER: "."
-#          FOLDER: docs/build/html
+#      - name: Generate base.pot
+#        run: pybabel extract -o locale/base.pot pidroidbot_discord/
+#
+##      for each new lang
+##      pybabel init -l en_US -i locale/base.pot -d locale
+#
+#      - name: Upadate catalogs
+#        run: pybabel update -i locale/base.pot -d locale
+
+#      - name: Compile catalogs
+#        run: pybabel compile -d locale
+#
+#      - name: Push upgrades
+#        uses: JamesIves/github-pages-deploy-action@releases/v3
+#        with:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          BRANCH: internationalization
+#          FOLDER: "."
+##          FOLDER: docs/build/html
+
+
+
 
 #pybabel init -l fr_FR en_US -i locale/base.pot -d locale
 #pybabel update -i locale/base.pot -d locale
