@@ -23,7 +23,7 @@ jobs:
 
       - name: Setup Git
         run: |
-          git config user.name " PiDroid-B Bot"
+          git config user.name " PiDroid-B Action New release"
           git config user.email 'pidroid-b@users.noreply.github.com'
 #          git remote set-url origin https://x-access-token:${{ secrets.AC_GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
 #          git checkout "${GITHUB_REF:11}"
@@ -64,6 +64,23 @@ jobs:
         run: |
           bump2version patch
         if: env.SKIPBUMP == 'FALSE'
+
+      - name: Compile i18n catalogs
+        run: pybabel compile -d locale
+
+      - name: Check i18n coverage
+        id: i18nCoverage
+        uses: alexkiro/i18n-coverage@v1.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          translations-path: 'locale/**/LC_MESSAGES/*.po'
+
+      - name: Update i18n badge
+        run: |
+          badge="s#.. image:: https://img.shields.io/badge/i18n Coverage-.*$#.. image:: https://img.shields.io/badge/i18n Coverage-${{ steps.i18nCoverage.outputs.coverage }}%25-green#"
+          alt="s#:alt: i18n Coverage .*$#:alt: i18n Coverage ${{ steps.i18nCoverage.outputs.coverage }}%#"
+          sed -i "$badge" README.rst
+          sed -i "$alt" README.rst
 
       - name: Commit version change to master
         run: |

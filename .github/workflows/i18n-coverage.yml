@@ -5,10 +5,10 @@ name: i18n Coverage
 on:
   push:
     paths:
-    - 'locale/**/LC_MESSAGES/*.po'
+    - 'locale/**/LC_MESSAGES/*.pao'
   pull_request:
     paths:
-    - 'locale/**/LC_MESSAGES/*.po'
+    - 'locale/**/LC_MESSAGES/*.pao'
 
 jobs:
   i18n-coverage:
@@ -34,5 +34,14 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         translations-path: 'locale/**/LC_MESSAGES/*.po'
 
-    - name: Get the coverage
-      run: echo "The coverage was ${{ steps.i18nCoverage.outputs.coverage }}"
+#https://img.shields.io/badge/i18n Coverage-50%25-green
+
+#    - name: Get the coverage
+#      run: echo "The coverage was ${{ steps.i18nCoverage.outputs.coverage }}"
+
+    - name: Update badge
+      run: |
+        badge="s#.. image:: https://img.shields.io/badge/i18n Coverage-.*$#.. image:: https://img.shields.io/badge/i18n Coverage-${{ steps.i18nCoverage.outputs.coverage }}%25-green#"
+        alt="s#:alt: i18n Coverage .*$#:alt: i18n Coverage ${{ steps.i18nCoverage.outputs.coverage }}%#"
+        sed -i "$badge" README.rst
+        sed -i "$alt" README.rst
