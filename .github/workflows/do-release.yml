@@ -77,8 +77,8 @@ jobs:
 
       - name: Update i18n badge
         run: |
-          badge="s#.. image:: https://img.shields.io/badge/i18n Coverage-.*$#.. image:: https://img.shields.io/badge/i18n Coverage-${{ steps.i18nCoverage.outputs.coverage }}%25-green#"
-          alt="s#:alt: i18n Coverage .*$#:alt: i18n Coverage ${{ steps.i18nCoverage.outputs.coverage }}%#"
+          badge="s#.. image:: https://img.shields.io/badge/i18n Coverage-.*\$#.. image:: https://img.shields.io/badge/i18n Coverage-${{ steps.i18nCoverage.outputs.coverage }}%25-green#"
+          alt="s#:alt: i18n Coverage .*\$#:alt: i18n Coverage ${{ steps.i18nCoverage.outputs.coverage }}%#"
           sed -i "$badge" README.rst
           sed -i "$alt" README.rst
 
