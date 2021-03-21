@@ -12,3 +12,9 @@ PidroidBot for Discord
 .. image:: https://github.com/PiDroid-B/pidroidbot-discord/workflows/Build%20new%20release/badge.svg?branch=main
     :target: https://github.com/PiDroid-B/pidroidbot-discord/actions?workflow=Build%20new%20release
     :alt: Package Build
+
+.. image:: https://img.shields.io/github/v/release/PiDroid-B/pidroidbot-discord
+    :target: https://github.com/PiDroid-B/pidroidbot-discord/releases
+    :alt: Last Release
+
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/PiDroid-B/ansible-copydata)](https://galaxy.ansible.com/pidroid_b/copydata)

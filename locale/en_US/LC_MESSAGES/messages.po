@@ -24,7 +24,7 @@ msgstr "aasssa"
 
 #: pidroidbot_discord/launcher.py:39
 msgid "- Server {servername}"
-msgstr "sdfqsdf"
+msgstr ""
 
 
 
