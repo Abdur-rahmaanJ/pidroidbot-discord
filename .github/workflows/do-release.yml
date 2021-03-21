@@ -58,7 +58,6 @@ jobs:
               :alt: i18n Coverage ${{ steps.i18nCoverage.outputs.coverage }}%
 
           EOF
-          git add .
 #          badge="s#.. image:: https://img.shields.io/badge/i18n Coverage-.*\$#.. image:: https://img.shields.io/badge/i18n Coverage-${{ steps.i18nCoverage.outputs.coverage }}%25-green#"
 #          alt="s#:alt: i18n Coverage .*\$#:alt: i18n Coverage ${{ steps.i18nCoverage.outputs.coverage }}%#"
 #          sed -ri "$badge" README.rst
@@ -68,7 +67,7 @@ jobs:
         env:
           COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
-          bump2version minor
+          bump2version minor --allow-dirty
           echo "SKIPBUMP=TRUE" >> $GITHUB_ENV
         if: "startsWith(github.event.head_commit.message, '[MAJOR]')"
 
@@ -76,7 +75,7 @@ jobs:
         env:
           COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
-          bump2version minor
+          bump2version minor --allow-dirty
           echo "SKIPBUMP=TRUE" >> $GITHUB_ENV
         if: "startsWith(github.event.head_commit.message, '[FEATURE]')"
 
@@ -85,7 +84,7 @@ jobs:
         env:
           COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
-          bump2version patch
+          bump2version patch --allow-dirty
         if: env.SKIPBUMP == 'FALSE'
 
       - name: Commit version change to master
