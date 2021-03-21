@@ -77,10 +77,11 @@ jobs:
 
       - name: Update i18n badge
         run: |
-          head -n 10 README.rst
-          sed -ri "s#(badge/i18n Coverage-).*(%25-green)#\1${{ steps.i18nCoverage.outputs.coverage }}\2#" README.rst
-          sed -ri "s#(:alt: i18n Coverage ).*#\1${{ steps.i18nCoverage.outputs.coverage }}#" README.rst
-          head -n 10 README.rst
+          cat >> docs/BADGE_I18NCOVERAGE.rst <<- EOF
+          .. image:: https://img.shields.io/badge/i18n Coverage-${{ steps.i18nCoverage.outputs.coverage }}%25-green
+              :alt: i18n Coverage ${{ steps.i18nCoverage.outputs.coverage }}%
+
+          EOF
 #          badge="s#.. image:: https://img.shields.io/badge/i18n Coverage-.*\$#.. image:: https://img.shields.io/badge/i18n Coverage-${{ steps.i18nCoverage.outputs.coverage }}%25-green#"
 #          alt="s#:alt: i18n Coverage .*\$#:alt: i18n Coverage ${{ steps.i18nCoverage.outputs.coverage }}%#"
 #          sed -ri "$badge" README.rst
