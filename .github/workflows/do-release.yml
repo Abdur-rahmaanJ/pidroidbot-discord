@@ -41,6 +41,28 @@ jobs:
 #      - name: Check changelog
 #        run: python tools/check_changelog.py
 
+      - name: Compile i18n catalogs
+        run: pybabel compile -d locale
+
+      - name: Check i18n coverage
+        id: i18nCoverage
+        uses: alexkiro/i18n-coverage@v1.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          translations-path: 'locale/**/LC_MESSAGES/*.po'
+
+      - name: Update i18n badge
+        run: |
+          cat >> docs/BADGE_I18NCOVERAGE.rst <<- EOF
+          .. image:: https://img.shields.io/badge/i18n Coverage-${{ steps.i18nCoverage.outputs.coverage }}%25-green
+              :alt: i18n Coverage ${{ steps.i18nCoverage.outputs.coverage }}%
+
+          EOF
+#          badge="s#.. image:: https://img.shields.io/badge/i18n Coverage-.*\$#.. image:: https://img.shields.io/badge/i18n Coverage-${{ steps.i18nCoverage.outputs.coverage }}%25-green#"
+#          alt="s#:alt: i18n Coverage .*\$#:alt: i18n Coverage ${{ steps.i18nCoverage.outputs.coverage }}%#"
+#          sed -ri "$badge" README.rst
+#          sed -ri "$alt" README.rst
+
       - name: Bump Major Version
         env:
           COMMIT_MSG: ${{ github.event.head_commit.message }}
@@ -64,28 +86,6 @@ jobs:
         run: |
           bump2version patch
         if: env.SKIPBUMP == 'FALSE'
-
-      - name: Compile i18n catalogs
-        run: pybabel compile -d locale
-
-      - name: Check i18n coverage
-        id: i18nCoverage
-        uses: alexkiro/i18n-coverage@v1.0.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          translations-path: 'locale/**/LC_MESSAGES/*.po'
-
-      - name: Update i18n badge
-        run: |
-          cat >> docs/BADGE_I18NCOVERAGE.rst <<- EOF
-          .. image:: https://img.shields.io/badge/i18n Coverage-${{ steps.i18nCoverage.outputs.coverage }}%25-green
-              :alt: i18n Coverage ${{ steps.i18nCoverage.outputs.coverage }}%
-
-          EOF
-#          badge="s#.. image:: https://img.shields.io/badge/i18n Coverage-.*\$#.. image:: https://img.shields.io/badge/i18n Coverage-${{ steps.i18nCoverage.outputs.coverage }}%25-green#"
-#          alt="s#:alt: i18n Coverage .*\$#:alt: i18n Coverage ${{ steps.i18nCoverage.outputs.coverage }}%#"
-#          sed -ri "$badge" README.rst
-#          sed -ri "$alt" README.rst
 
       - name: Commit version change to master
         run: |
