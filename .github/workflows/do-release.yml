@@ -53,7 +53,7 @@ jobs:
 
       - name: Update i18n badge
         run: |
-          cat >> docs/BADGE_I18NCOVERAGE.rst <<- EOF
+          cat > docs/BADGE_I18NCOVERAGE.rst <<- EOF
           .. image:: https://img.shields.io/badge/i18n Coverage-${{ steps.i18nCoverage.outputs.coverage }}%25-green
               :alt: i18n Coverage ${{ steps.i18nCoverage.outputs.coverage }}%
 
