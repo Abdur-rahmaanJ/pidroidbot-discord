@@ -58,6 +58,7 @@ jobs:
               :alt: i18n Coverage ${{ steps.i18nCoverage.outputs.coverage }}%
 
           EOF
+          git add .
 #          badge="s#.. image:: https://img.shields.io/badge/i18n Coverage-.*\$#.. image:: https://img.shields.io/badge/i18n Coverage-${{ steps.i18nCoverage.outputs.coverage }}%25-green#"
 #          alt="s#:alt: i18n Coverage .*\$#:alt: i18n Coverage ${{ steps.i18nCoverage.outputs.coverage }}%#"
 #          sed -ri "$badge" README.rst
