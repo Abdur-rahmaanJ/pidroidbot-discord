@@ -1,5 +1,5 @@
 ================================
-PidroidBot for Discord v0.1.7
+PidroidBot for Discord v0.1.8
 ================================
 
 .. include:: docs/BADGE_I18NCOVERAGE.rst
